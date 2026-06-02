@@ -12,5 +12,5 @@ resource "random_string" "suffix" {
 }
 
 locals {
-  environment_prefix = "raffablog"
+  environment_prefix = "${var.application_name}-${var.environment_name}"
 }
