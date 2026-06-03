@@ -121,8 +121,8 @@ module "regional_stamps_map" {
   source   = "./modules/regional-stamp"
   for_each = local.regional_stamps_map
 
-  region         = local.regional_stamps_map[each.key].region
+  region         = each.value.region
   name           = each.key
-  min_node_count = local.regional_stamps_map[each.key].min_node_count
-  max_node_count = local.regional_stamps_map[each.key].max_node_count
+  min_node_count = each.value.min_node_count
+  max_node_count = each.value.max_node_count
 }
