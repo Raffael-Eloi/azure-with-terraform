@@ -60,3 +60,21 @@ module "charlie" {
 
   length = 8
 }
+
+module "regionA" {
+  source = "./modules/regional-stamp"
+
+  region         = "eastus"
+  name           = "vt-test-a"
+  min_node_count = 4
+  max_node_count = 8
+}
+
+module "regionB" {
+  source = "./modules/regional-stamp"
+
+  region         = "eastus"
+  name           = "vt-test-b"
+  min_node_count = 4
+  max_node_count = 8
+}
