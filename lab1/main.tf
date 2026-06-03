@@ -44,3 +44,13 @@ resource "random_string" "if" {
   upper   = false
   special = false
 }
+
+module "module" {
+  source  = "hashicorp/module/random"
+  version = "1.0.0"
+}
+
+module "module2" {
+  source  = "hashicorp/module/random"
+  version = "1.0.0"
+}
