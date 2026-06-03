@@ -38,3 +38,8 @@ output "alpha" {
 output "bravo" {
   value = module.bravo.random_string
 }
+
+output "charlie" {
+  // not sure
+  value = module.charlie.charlie
+}

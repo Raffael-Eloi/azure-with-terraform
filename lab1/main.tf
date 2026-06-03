@@ -54,3 +54,9 @@ module "bravo" {
   source  = "hashicorp/module/random"
   version = "1.0.0"
 }
+
+module "charlie" {
+  source = "./modules/myrandom"
+
+  length = 8
+}
