@@ -45,12 +45,12 @@ resource "random_string" "if" {
   special = false
 }
 
-module "module" {
+module "alpha" {
   source  = "hashicorp/module/random"
   version = "1.0.0"
 }
 
-module "module2" {
+module "bravo" {
   source  = "hashicorp/module/random"
   version = "1.0.0"
 }
