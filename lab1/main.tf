@@ -19,3 +19,11 @@ locals {
   min_nodes = 5
   max_nodes = 9
 }
+
+resource "random_string" "list" {
+  count = length(var.regions)
+
+  length  = 6
+  upper   = false
+  special = false
+}
