@@ -13,3 +13,8 @@ output "environment_prefix" {
 output "suffix" {
   value = random_string.suffix.result
 }
+
+output "api_key" {
+  value     = "${var.api_key}bar"
+  sensitive = true
+}
