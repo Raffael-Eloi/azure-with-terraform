@@ -13,6 +13,34 @@ resource "random_string" "suffix" {
 
 locals {
   environment_prefix = "${var.application_name}-${var.environment_name}-${random_string.suffix.result}"
+
+  regional_stamps = [
+    {
+      region         = "westus"
+      name           = "vt-test-a"
+      min_node_count = 4
+      max_node_count = 8
+    },
+    {
+      region         = "eastus"
+      name           = "vt-test-b"
+      min_node_count = 4
+      max_node_count = 8
+    }
+  ]
+
+  regional_stamps_map = {
+    "vt-test-a" = {
+      region         = "westus"
+      min_node_count = 4
+      max_node_count = 8
+    },
+    "vt-test-b" = {
+      region         = "eastus"
+      min_node_count = 4
+      max_node_count = 8
+    }
+  }
 }
 
 locals {
@@ -61,20 +89,40 @@ module "charlie" {
   length = 8
 }
 
-module "regionA" {
-  source = "./modules/regional-stamp"
+# module "regionA" {
+#   source = "./modules/regional-stamp"
 
-  region         = "eastus"
-  name           = "vt-test-a"
-  min_node_count = 4
-  max_node_count = 8
+#   region         = "westus"
+#   name           = "vt-test-a"
+#   min_node_count = 4
+#   max_node_count = 8
+# }
+
+# module "regionB" {
+#   source = "./modules/regional-stamp"
+
+#   region         = "eastus"
+#   name           = "vt-test-b"
+#   min_node_count = 4
+#   max_node_count = 8
+# }
+
+module "regional_stamps" {
+  source = "./modules/regional-stamp"
+  count  = length(local.regional_stamps)
+
+  region         = local.regional_stamps[count.index].region
+  name           = local.regional_stamps[count.index].name
+  min_node_count = local.regional_stamps[count.index].min_node_count
+  max_node_count = local.regional_stamps[count.index].max_node_count
 }
 
-module "regionB" {
-  source = "./modules/regional-stamp"
+module "regional_stamps_map" {
+  source   = "./modules/regional-stamp"
+  for_each = local.regional_stamps_map
 
-  region         = "eastus"
-  name           = "vt-test-b"
-  min_node_count = 4
-  max_node_count = 8
+  region         = local.regional_stamps_map[each.key].region
+  name           = each.key
+  min_node_count = local.regional_stamps_map[each.key].min_node_count
+  max_node_count = local.regional_stamps_map[each.key].max_node_count
 }
