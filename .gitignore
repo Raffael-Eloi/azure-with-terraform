@@ -1,0 +1,23 @@
+# Local .terraform directories (provider binaries, module cache)
+**/.terraform/*
+
+# Terraform state lock info (transient; leaks user/host)
+*.tfstate.lock.info
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Ignore override files (usually local, not committed)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# NOTE: .tfstate files are intentionally committed here (redacted) for this lab.
+# Do NOT commit real state with live secrets in production.
+# NOTE: .terraform.lock.hcl is intentionally committed (HashiCorp recommended).
