@@ -9,3 +9,23 @@ resource "azurerm_public_ip" "vm1" {
   location            = azurerm_resource_group.main.location
   allocation_method   = "Static"
 }
+
+data "azurerm_subnet" "alpha" {
+  name                 = "snet-alpha"
+  virtual_network_name = "vnet-network-prod"
+  resource_group_name  = "rg-network-prod"
+}
+
+
+resource "azurerm_network_interface" "vm1" {
+  name                = "nic-${var.application_name}-${var.environment_name}-vm1"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  ip_configuration {
+    name                          = "public"
+    subnet_id                     = data.azurerm_subnet.alpha.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.vm1.id
+  }
+}
