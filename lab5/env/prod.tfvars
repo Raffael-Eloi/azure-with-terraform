@@ -1,1 +1,2 @@
-environment_name = "prod"
+environment_name   = "prod"
+base_address_space = "10.39.0.0/22"
