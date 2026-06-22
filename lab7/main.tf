@@ -70,3 +70,26 @@ resource "azapi_resource" "vm1_nic" {
     }
   }
 }
+
+resource "tls_private_key" "vm1" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "azapi_resource" "ssh_private" {
+  type      = "Microsoft.KeyVault/vaults/secrets@2023-XX-XX"
+  name      = "vm1-ssh-private"
+  parent_id = data.azapi_resource.key_vault.id
+
+  body = {
+    properties = {
+      value = tls_private_key.vm1.private_key_pem
+    }
+  }
+
+  schema_validation_enabled = false
+
+  lifecycle {
+    ignore_changes = [location]
+  }
+}
